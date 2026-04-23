@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.github
+.claude
+plans
+docs
+**/*.md
+.env*
