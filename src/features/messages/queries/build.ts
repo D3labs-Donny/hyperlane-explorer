@@ -210,8 +210,10 @@ function buildDomainIdWhereClause(
   fieldName: 'origin' | 'destination',
   mainnetDomainIds: number[] = [],
 ) {
-  // if no filters are set, filter by mainnet chains to not display testnest messages for vanilla query
-  if (!hasFilters) return `{${fieldName}_domain_id: {_in: [${mainnetDomainIds}]}},`;
+  // if no filters are set, filter by mainnet chains to not display testnet messages for vanilla query
+  // Skip this filter when there are no mainnet chains (e.g., self-hosted with only testnets)
+  if (!hasFilters && mainnetDomainIds.length > 0)
+    return `{${fieldName}_domain_id: {_in: [${mainnetDomainIds}]}},`;
 
   // if the domainId is set, filter by this domainId instead of mainnet domains
   if (domainId) return `{${fieldName}_domain_id: {_in: $${fieldName}Chains}},`;
