@@ -12,7 +12,7 @@ steps:
 images:
   - '${_IMAGE}'
 substitutions:
-  _IMAGE: asia-southeast2-docker.pkg.dev/sto-dev-452608/sto/staging/hyperlane-explorer:v13.1.0
+  _IMAGE: asia-southeast2-docker.pkg.dev/sto-dev-452608/sto/staging/hyperlane-explorer:v13.2.0
   _NEXT_PUBLIC_REGISTRY_URL: https://raw.githubusercontent.com/D3labs-Donny/hyperlane-registry/refs/heads/main
   _NEXT_PUBLIC_API_URL: https://hasura-explorer.sto-staging.d3labs.io/v1/graphql
 options:
