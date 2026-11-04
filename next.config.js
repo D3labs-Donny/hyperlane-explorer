@@ -4,10 +4,18 @@ const { version } = require('./package.json');
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-const IMG_SRC_HOSTS = [
-  'https://raw.githubusercontent.com',
-  'https://cdn.jsdelivr.net/gh/hyperlane-xyz/hyperlane-registry@main/',
-];
+// Chain logos are served from the same GitHub registry the app reads metadata from
+// (mirrors registryImgPath in src/consts/links.ts).
+const registryMatch = (process.env.NEXT_PUBLIC_REGISTRY_URL || '').match(
+  /^https:\/\/github\.com\/([^/]+)\/([^/]+?)\/?$/,
+);
+const REGISTRY_IMG_PATH = registryMatch
+  ? `https://cdn.jsdelivr.net/gh/${registryMatch[1]}/${registryMatch[2]}@${
+      process.env.NEXT_PUBLIC_REGISTRY_BRANCH || 'main'
+    }/`
+  : 'https://cdn.jsdelivr.net/gh/hyperlane-xyz/hyperlane-registry@main/';
+
+const IMG_SRC_HOSTS = ['https://raw.githubusercontent.com', REGISTRY_IMG_PATH];
 
 const securityHeaders = [
   {
